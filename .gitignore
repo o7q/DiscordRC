@@ -1,0 +1,10 @@
+src/rcbot/transit
+src/rcbot/transit_operator.exe
+src/rcbot/token.json
+src/rcbot/package-lock.json
+src/rcbot/node
+src/rcbot/node_modules
+src/rcbot/.vscode
+src/transit_operator/transit
+src/transit_operator/transit_operator.exe
+src/transit_operator/.vscode
