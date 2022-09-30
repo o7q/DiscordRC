@@ -30,13 +30,13 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(program));
             this.titlebarPanel = new System.Windows.Forms.Panel();
-            this.titlebarBanner = new System.Windows.Forms.PictureBox();
             this.exitButton = new System.Windows.Forms.Button();
             this.minimizeButton = new System.Windows.Forms.Button();
             this.startButton = new System.Windows.Forms.Button();
             this.rightBar = new System.Windows.Forms.Panel();
             this.leftBar = new System.Windows.Forms.Panel();
             this.settingsButton = new System.Windows.Forms.Button();
+            this.titlebarBanner = new System.Windows.Forms.PictureBox();
             this.titlebarPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.titlebarBanner)).BeginInit();
             this.SuspendLayout();
@@ -53,19 +53,9 @@
             this.titlebarPanel.TabIndex = 0;
             this.titlebarPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.titlebarPanel_MouseDown);
             // 
-            // titlebarBanner
-            // 
-            this.titlebarBanner.Image = ((System.Drawing.Image)(resources.GetObject("titlebarBanner.Image")));
-            this.titlebarBanner.Location = new System.Drawing.Point(7, 6);
-            this.titlebarBanner.Name = "titlebarBanner";
-            this.titlebarBanner.Size = new System.Drawing.Size(75, 16);
-            this.titlebarBanner.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.titlebarBanner.TabIndex = 2;
-            this.titlebarBanner.TabStop = false;
-            this.titlebarBanner.MouseDown += new System.Windows.Forms.MouseEventHandler(this.titlebarBanner_MouseDown);
-            // 
             // exitButton
             // 
+            this.exitButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(34)))), ((int)(((byte)(37)))));
             this.exitButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(34)))), ((int)(((byte)(37)))));
             this.exitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.exitButton.ForeColor = System.Drawing.Color.Gray;
@@ -74,22 +64,23 @@
             this.exitButton.Size = new System.Drawing.Size(28, 28);
             this.exitButton.TabIndex = 2;
             this.exitButton.Text = "✖";
-            this.exitButton.UseVisualStyleBackColor = true;
+            this.exitButton.UseVisualStyleBackColor = false;
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             this.exitButton.MouseEnter += new System.EventHandler(this.exitButton_MouseEnter);
             this.exitButton.MouseLeave += new System.EventHandler(this.exitButton_MouseLeave);
             // 
             // minimizeButton
             // 
+            this.minimizeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(34)))), ((int)(((byte)(37)))));
             this.minimizeButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(34)))), ((int)(((byte)(37)))));
             this.minimizeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.minimizeButton.ForeColor = System.Drawing.Color.Gray;
-            this.minimizeButton.Location = new System.Drawing.Point(321, 1);
+            this.minimizeButton.Location = new System.Drawing.Point(318, 1);
             this.minimizeButton.Name = "minimizeButton";
             this.minimizeButton.Size = new System.Drawing.Size(28, 28);
             this.minimizeButton.TabIndex = 3;
             this.minimizeButton.Text = "─";
-            this.minimizeButton.UseVisualStyleBackColor = true;
+            this.minimizeButton.UseVisualStyleBackColor = false;
             this.minimizeButton.Click += new System.EventHandler(this.minimizeButton_Click);
             // 
             // startButton
@@ -135,6 +126,17 @@
             this.settingsButton.Size = new System.Drawing.Size(26, 26);
             this.settingsButton.TabIndex = 1;
             this.settingsButton.UseVisualStyleBackColor = false;
+            // 
+            // titlebarBanner
+            // 
+            this.titlebarBanner.Image = ((System.Drawing.Image)(resources.GetObject("titlebarBanner.Image")));
+            this.titlebarBanner.Location = new System.Drawing.Point(7, 6);
+            this.titlebarBanner.Name = "titlebarBanner";
+            this.titlebarBanner.Size = new System.Drawing.Size(75, 16);
+            this.titlebarBanner.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.titlebarBanner.TabIndex = 2;
+            this.titlebarBanner.TabStop = false;
+            this.titlebarBanner.MouseDown += new System.Windows.Forms.MouseEventHandler(this.titlebarBanner_MouseDown);
             // 
             // program
             // 
