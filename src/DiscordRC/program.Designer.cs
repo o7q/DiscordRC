@@ -168,6 +168,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "program";
             this.Text = "DiscordRC";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.program_FormClosing);
             this.Load += new System.EventHandler(this.program_Load);
             this.titlebarPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.titlebarBanner)).EndInit();

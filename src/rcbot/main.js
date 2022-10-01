@@ -59,7 +59,7 @@ client.on("messageCreate", (message) =>
     {
         const cmd_raw = cmd.replace("shell ", "");
         message.channel.send('Sending (shell) "' + cmd_raw + '" to DiscordRC.');
-        console.log(lis_log + 'Heard (shell) request of "' + cmd_raw + '"');
+        console.log(lis_log + 'Heard (shell) request of "' + cmd_raw + '" ($shell) ');
         transitOut(shell_obj + cmd_raw);
 
         return;
@@ -70,13 +70,13 @@ client.on("messageCreate", (message) =>
         if (doShutdown == true)
         {
             message.channel.send("Shutting down...");
-            console.log(in_log + "Recieved shutdown request (state = " + doShutdown + ")\n -> [SHUTTING DOWN]");
+            console.log(in_log + "Recieved shutdown request ($shutdown) (state = " + doShutdown + ")\n -> [SHUTTING DOWN]");
             process.exit(0);
         }
         if (doShutdown == false)
         {
-            message.channel.send("Are you sure you want to shutdown DiscordRC? To confirm, type **$shutdown** again.");
-            console.log(in_log + "Recieved shutdown request (state = " + doShutdown + ")");
+            message.channel.send("Are you sure you want to shutdown **DiscordRC**? To confirm, type **$shutdown** again.");
+            console.log(in_log + "Recieved shutdown request ($shutdown) (state = " + doShutdown + ")");
             doShutdown = true;
         }
 
@@ -86,6 +86,7 @@ client.on("messageCreate", (message) =>
     if (cmd.startsWith("info"))
     {
         message.channel.send("DiscordRC " + ver + " by o7q\nhttps://github.com/o7q/DiscordRC");
+		console.log(in_log + "Displaying DiscordRC info to the requester ($info)");
 
         return;
     }

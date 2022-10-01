@@ -30,13 +30,14 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(settings));
             this.tokenBox = new System.Windows.Forms.TextBox();
-            this.acceptToken = new System.Windows.Forms.Button();
+            this.acceptTokenButton = new System.Windows.Forms.Button();
             this.titlebarPanel = new System.Windows.Forms.Panel();
             this.settingsLabel = new System.Windows.Forms.Label();
             this.titlebarBanner = new System.Windows.Forms.PictureBox();
             this.exitButton = new System.Windows.Forms.Button();
             this.botTokenLabel = new System.Windows.Forms.Label();
-            this.resetToken = new System.Windows.Forms.Button();
+            this.resetTokenButton = new System.Windows.Forms.Button();
+            this.clearLogsButton = new System.Windows.Forms.Button();
             this.titlebarPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.titlebarBanner)).BeginInit();
             this.SuspendLayout();
@@ -52,20 +53,20 @@
             this.tokenBox.Size = new System.Drawing.Size(408, 19);
             this.tokenBox.TabIndex = 0;
             // 
-            // acceptToken
+            // acceptTokenButton
             // 
-            this.acceptToken.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(80)))), ((int)(((byte)(75)))));
-            this.acceptToken.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(57)))), ((int)(((byte)(63)))));
-            this.acceptToken.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.acceptToken.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.acceptToken.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(221)))), ((int)(((byte)(222)))));
-            this.acceptToken.Location = new System.Drawing.Point(6, 64);
-            this.acceptToken.Name = "acceptToken";
-            this.acceptToken.Size = new System.Drawing.Size(56, 23);
-            this.acceptToken.TabIndex = 1;
-            this.acceptToken.Text = "Register";
-            this.acceptToken.UseVisualStyleBackColor = false;
-            this.acceptToken.Click += new System.EventHandler(this.acceptToken_Click);
+            this.acceptTokenButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(80)))), ((int)(((byte)(75)))));
+            this.acceptTokenButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(57)))), ((int)(((byte)(63)))));
+            this.acceptTokenButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.acceptTokenButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.acceptTokenButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(221)))), ((int)(((byte)(222)))));
+            this.acceptTokenButton.Location = new System.Drawing.Point(6, 64);
+            this.acceptTokenButton.Name = "acceptTokenButton";
+            this.acceptTokenButton.Size = new System.Drawing.Size(56, 23);
+            this.acceptTokenButton.TabIndex = 1;
+            this.acceptTokenButton.Text = "Register";
+            this.acceptTokenButton.UseVisualStyleBackColor = false;
+            this.acceptTokenButton.Click += new System.EventHandler(this.acceptTokenButton_Click);
             // 
             // titlebarPanel
             // 
@@ -129,20 +130,29 @@
             this.botTokenLabel.TabIndex = 3;
             this.botTokenLabel.Text = "Bot Token";
             // 
-            // resetToken
+            // resetTokenButton
             // 
-            this.resetToken.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(68)))), ((int)(((byte)(75)))));
-            this.resetToken.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(57)))), ((int)(((byte)(63)))));
-            this.resetToken.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.resetToken.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.resetToken.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(221)))), ((int)(((byte)(222)))));
-            this.resetToken.Location = new System.Drawing.Point(61, 64);
-            this.resetToken.Name = "resetToken";
-            this.resetToken.Size = new System.Drawing.Size(56, 23);
-            this.resetToken.TabIndex = 4;
-            this.resetToken.Text = "Reset";
-            this.resetToken.UseVisualStyleBackColor = false;
-            this.resetToken.Click += new System.EventHandler(this.resetToken_Click);
+            this.resetTokenButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(68)))), ((int)(((byte)(75)))));
+            this.resetTokenButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(57)))), ((int)(((byte)(63)))));
+            this.resetTokenButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.resetTokenButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.resetTokenButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(221)))), ((int)(((byte)(222)))));
+            this.resetTokenButton.Location = new System.Drawing.Point(61, 64);
+            this.resetTokenButton.Name = "resetTokenButton";
+            this.resetTokenButton.Size = new System.Drawing.Size(56, 23);
+            this.resetTokenButton.TabIndex = 4;
+            this.resetTokenButton.Text = "Reset";
+            this.resetTokenButton.UseVisualStyleBackColor = false;
+            this.resetTokenButton.Click += new System.EventHandler(this.resetTokenButton_Click);
+            // 
+            // clearLogsButton
+            // 
+            this.clearLogsButton.Location = new System.Drawing.Point(266, 157);
+            this.clearLogsButton.Name = "clearLogsButton";
+            this.clearLogsButton.Size = new System.Drawing.Size(75, 23);
+            this.clearLogsButton.TabIndex = 5;
+            this.clearLogsButton.Text = "Clear Logs";
+            this.clearLogsButton.UseVisualStyleBackColor = true;
             // 
             // settings
             // 
@@ -150,10 +160,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(57)))), ((int)(((byte)(63)))));
             this.ClientSize = new System.Drawing.Size(423, 223);
-            this.Controls.Add(this.resetToken);
+            this.Controls.Add(this.clearLogsButton);
+            this.Controls.Add(this.resetTokenButton);
             this.Controls.Add(this.botTokenLabel);
             this.Controls.Add(this.titlebarPanel);
-            this.Controls.Add(this.acceptToken);
+            this.Controls.Add(this.acceptTokenButton);
             this.Controls.Add(this.tokenBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -171,12 +182,13 @@
         #endregion
 
         private System.Windows.Forms.TextBox tokenBox;
-        private System.Windows.Forms.Button acceptToken;
+        private System.Windows.Forms.Button acceptTokenButton;
         private System.Windows.Forms.Panel titlebarPanel;
         private System.Windows.Forms.Button exitButton;
         private System.Windows.Forms.Label botTokenLabel;
-        private System.Windows.Forms.Button resetToken;
+        private System.Windows.Forms.Button resetTokenButton;
         private System.Windows.Forms.PictureBox titlebarBanner;
         private System.Windows.Forms.Label settingsLabel;
+        private System.Windows.Forms.Button clearLogsButton;
     }
 }

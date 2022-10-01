@@ -31,10 +31,10 @@ namespace DiscordRC
             {
                 try { tokenBox.Text = File.ReadAllText(settingsDir + "\\.token"); } catch { }
                 tokenVis(false);
-            }               
+            }
         }
 
-        private void acceptToken_Click(object sender, EventArgs e)
+        private void acceptTokenButton_Click(object sender, EventArgs e)
         {
             string[] tokenPaths = { settingsDir + "\\.token.json", settingsDir + "\\.token" };
             string[] tokenItems = { "{\"token\":\"" + tokenBox.Text + "\"}", tokenBox.Text };
@@ -46,13 +46,10 @@ namespace DiscordRC
             tokenVis(false);
         }
 
-        private void resetToken_Click(object sender, EventArgs e)
+        private void resetTokenButton_Click(object sender, EventArgs e)
         {
             string[] tokenPaths = { settingsDir + "\\.token.json", settingsDir + "\\.token" };
-            for (int i = 0; i < 2; i++)
-            {
-                try { File.Delete(tokenPaths[i]); } catch { }
-            }
+            for (int i = 0; i < 2; i++) try { File.Delete(tokenPaths[i]); } catch { }
             tokenVis(true);
         }
 
