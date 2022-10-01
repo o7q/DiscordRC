@@ -5,7 +5,6 @@ using System.Reflection;
 using System.Diagnostics;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
-using System.Runtime.ConstrainedExecution;
 
 namespace DiscordRC
 {
