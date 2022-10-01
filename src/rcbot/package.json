@@ -4,7 +4,7 @@
   "description": "rcbot (remote control bot) for DiscordRC.",
   "main": "main.js",
   "scripts": {
-    "test": "@echo off & echo Hello? This is rcbot speaking! & pause"
+    "test": "@echo off & echo Hello, I am alive! & pause"
   },
   "keywords": [],
   "author": "o7q",

@@ -1,14 +1,12 @@
 ﻿using System;
 using System.IO;
 using System.Drawing;
-using System.Reflection;
-using System.Diagnostics;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 
 namespace DiscordRC
 {
-    public partial class program : Form
+    public partial class settings : Form
     {
         // configure mouse window events
         public const int HT_CAPTION = 0x2;
@@ -22,41 +20,60 @@ namespace DiscordRC
 
         const string settingsDir = "discordrc\\.settings";
 
-        public program()
+        public settings()
         {
             InitializeComponent();
         }
 
-        private void program_Load(object sender, EventArgs e)
+        private void settings_Load(object sender, EventArgs e)
         {
-            try { Directory.CreateDirectory("discordrc\\.settings"); } catch { }
-            try { Directory.CreateDirectory("discordrc\\.logs"); } catch { }
-        }
-
-        private void startButton_Click(object sender, EventArgs e)
-        {
-            if (!File.Exists(settingsDir + "\\.token.json"))
+            if (File.Exists(settingsDir + "\\.token"))
             {
-                MessageBox.Show("Please configure your bot token in settings.");
-                return;
+                try { tokenBox.Text = File.ReadAllText(settingsDir + "\\.token"); } catch { }
+                tokenVis(false);
+            }               
+        }
+
+        private void acceptToken_Click(object sender, EventArgs e)
+        {
+            string[] tokenPaths = { settingsDir + "\\.token.json", settingsDir + "\\.token" };
+            string[] tokenItems = { "{\"token\":\"" + tokenBox.Text + "\"}", tokenBox.Text };
+            for (int i = 0; i < 2; i++)
+            {
+                try { File.WriteAllText(tokenPaths[i], tokenItems[i]); } catch { }
+                try { File.SetAttributes(tokenPaths[i], FileAttributes.Hidden); } catch { }
             }
-            try { Process.Start(Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase) + "\\discordrc\\start.bat"); } catch { }
+            tokenVis(false);
         }
 
-        private void settingsButton_Click(object sender, EventArgs e)
+        private void resetToken_Click(object sender, EventArgs e)
         {
-            settings settings_form = new settings();
-            settings_form.ShowDialog();
-        }
-
-        private void minimizeButton_Click(object sender, EventArgs e)
-        {
-            WindowState = FormWindowState.Minimized;
+            string[] tokenPaths = { settingsDir + "\\.token.json", settingsDir + "\\.token" };
+            for (int i = 0; i < 2; i++)
+            {
+                try { File.Delete(tokenPaths[i]); } catch { }
+            }
+            tokenVis(true);
         }
 
         private void exitButton_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            Close();
+        }
+
+        private void tokenVis(bool vis)
+        {
+            if (vis == true)
+            {
+                tokenBox.Text = "";
+                tokenBox.PasswordChar = '\0';
+                tokenBox.ReadOnly = false;
+            }
+            if (vis == false)
+            {
+                tokenBox.PasswordChar = '•';
+                tokenBox.ReadOnly = true;
+            }
         }
 
         private void exitButton_MouseEnter(object sender, EventArgs e)
@@ -75,6 +92,11 @@ namespace DiscordRC
         }
 
         private void titlebarBanner_MouseDown(object sender, MouseEventArgs e)
+        {
+            mvFrm(e);
+        }
+
+        private void settingsLabel_MouseDown(object sender, MouseEventArgs e)
         {
             mvFrm(e);
         }

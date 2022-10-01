@@ -30,13 +30,14 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(program));
             this.titlebarPanel = new System.Windows.Forms.Panel();
+            this.titlebarBanner = new System.Windows.Forms.PictureBox();
             this.exitButton = new System.Windows.Forms.Button();
             this.minimizeButton = new System.Windows.Forms.Button();
             this.startButton = new System.Windows.Forms.Button();
             this.rightBar = new System.Windows.Forms.Panel();
             this.leftBar = new System.Windows.Forms.Panel();
             this.settingsButton = new System.Windows.Forms.Button();
-            this.titlebarBanner = new System.Windows.Forms.PictureBox();
+            this.verLabel = new System.Windows.Forms.Label();
             this.titlebarPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.titlebarBanner)).BeginInit();
             this.SuspendLayout();
@@ -52,6 +53,17 @@
             this.titlebarPanel.Size = new System.Drawing.Size(376, 27);
             this.titlebarPanel.TabIndex = 0;
             this.titlebarPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.titlebarPanel_MouseDown);
+            // 
+            // titlebarBanner
+            // 
+            this.titlebarBanner.Image = ((System.Drawing.Image)(resources.GetObject("titlebarBanner.Image")));
+            this.titlebarBanner.Location = new System.Drawing.Point(7, 7);
+            this.titlebarBanner.Name = "titlebarBanner";
+            this.titlebarBanner.Size = new System.Drawing.Size(75, 16);
+            this.titlebarBanner.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.titlebarBanner.TabIndex = 2;
+            this.titlebarBanner.TabStop = false;
+            this.titlebarBanner.MouseDown += new System.Windows.Forms.MouseEventHandler(this.titlebarBanner_MouseDown);
             // 
             // exitButton
             // 
@@ -126,17 +138,19 @@
             this.settingsButton.Size = new System.Drawing.Size(26, 26);
             this.settingsButton.TabIndex = 1;
             this.settingsButton.UseVisualStyleBackColor = false;
+            this.settingsButton.Click += new System.EventHandler(this.settingsButton_Click);
             // 
-            // titlebarBanner
+            // verLabel
             // 
-            this.titlebarBanner.Image = ((System.Drawing.Image)(resources.GetObject("titlebarBanner.Image")));
-            this.titlebarBanner.Location = new System.Drawing.Point(7, 6);
-            this.titlebarBanner.Name = "titlebarBanner";
-            this.titlebarBanner.Size = new System.Drawing.Size(75, 16);
-            this.titlebarBanner.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.titlebarBanner.TabIndex = 2;
-            this.titlebarBanner.TabStop = false;
-            this.titlebarBanner.MouseDown += new System.Windows.Forms.MouseEventHandler(this.titlebarBanner_MouseDown);
+            this.verLabel.AutoSize = true;
+            this.verLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(57)))), ((int)(((byte)(63)))));
+            this.verLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.verLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(85)))), ((int)(((byte)(85)))), ((int)(((byte)(85)))));
+            this.verLabel.Location = new System.Drawing.Point(249, 167);
+            this.verLabel.Name = "verLabel";
+            this.verLabel.Size = new System.Drawing.Size(32, 12);
+            this.verLabel.TabIndex = 6;
+            this.verLabel.Text = "v1.0.0";
             // 
             // program
             // 
@@ -144,6 +158,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(57)))), ((int)(((byte)(63)))));
             this.ClientSize = new System.Drawing.Size(366, 211);
+            this.Controls.Add(this.verLabel);
             this.Controls.Add(this.settingsButton);
             this.Controls.Add(this.leftBar);
             this.Controls.Add(this.startButton);
@@ -153,9 +168,11 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "program";
             this.Text = "DiscordRC";
+            this.Load += new System.EventHandler(this.program_Load);
             this.titlebarPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.titlebarBanner)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -169,6 +186,7 @@
         private System.Windows.Forms.Panel rightBar;
         private System.Windows.Forms.Panel leftBar;
         private System.Windows.Forms.Button settingsButton;
+        private System.Windows.Forms.Label verLabel;
     }
 }
 
