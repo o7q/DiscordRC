@@ -4,6 +4,9 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Linq;
+using System.Collections;
+using System.Runtime.InteropServices.ComTypes;
 
 namespace DiscordRC
 {
@@ -21,35 +24,46 @@ namespace DiscordRC
 
         // configure global variables
 
+        // misc.
+        bool doOnce = false;
         // pathing
         const string dir = "discordrc\\";
-        const string settingsDir = dir + ".settings\\";
-        const string logsDir = dir + ".logs\\";
+        const string settingsDir = dir + "@settings\\";
+        const string logsDir = dir + "@logs\\";
 
         public settings()
         {
             InitializeComponent();
         }
 
-        private void settings_Load(object sender, EventArgs e)
+        private void settings_Activated(object sender, EventArgs e)
         {
-            if (File.Exists(settingsDir + ".token"))
+            if (!File.Exists(settingsDir + "@c_sudoUsers")) try { File.WriteAllText(settingsDir + "@c_sudoUsers", ""); } catch { }
+
+            if (File.Exists(settingsDir + "@token"))
             {
-                try { tokenBox.Text = File.ReadAllText(settingsDir + ".token"); } catch { }
+                try { tokenBox.Text = File.ReadAllText(settingsDir + "@token"); } catch { }
                 tokenVis(false);
             }
 
-            if (File.Exists(settingsDir + ".c_enableLogging") || !File.Exists(settingsDir + ".c_defaults"))
+            if (File.Exists(settingsDir + "@c_enableLogging") || !File.Exists(settingsDir + "@c_defaults"))
             {
                 useLogsCheckbox.Checked = true;
-                File.WriteAllText(settingsDir + ".c_defaults", "");
+                File.WriteAllText(settingsDir + "@c_defaults", "");
+            }
+
+            if (doOnce == false)
+            {
+                rfrshUsrLst();
+
+                doOnce = true;
             }
         }
 
         private void acceptTokenButton_Click(object sender, EventArgs e)
         {
             if (tokenBox.Text == "") return;
-            string[] tokenPaths = { settingsDir + ".token.json", settingsDir + ".token" };
+            string[] tokenPaths = { settingsDir + "@token.json", settingsDir + "@token" };
             string[] tokenItems = { "{\"token\":\"" + tokenBox.Text + "\"}", tokenBox.Text };
             for (int i = 0; i < 2; i++)
             {
@@ -61,14 +75,40 @@ namespace DiscordRC
 
         private void resetTokenButton_Click(object sender, EventArgs e)
         {
-            string[] tokenPaths = { settingsDir + ".token.json", settingsDir + ".token" };
+            string[] tokenPaths = { settingsDir + "@token.json", settingsDir + "@token" };
             for (int i = 0; i < 2; i++) try { File.Delete(tokenPaths[i]); } catch { }
             tokenVis(true);
         }
 
+        private void useLogsCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            try { if (useLogsCheckbox.Checked == true) File.WriteAllText(settingsDir + "@c_enableLogging", ""); else File.Delete(settingsDir + "@c_enableLogging"); } catch { }
+        }
+
         private void clearLogsButton_Click(object sender, EventArgs e)
         {
-            new List<string>(Directory.GetFiles(logsDir)).ForEach(file => { if (file.IndexOf(".log@", StringComparison.OrdinalIgnoreCase) >= 0) File.Delete(file); });
+            new List<string>(Directory.GetFiles(logsDir)).ForEach(file => { if (file.IndexOf("@log@", StringComparison.OrdinalIgnoreCase) >= 0) File.Delete(file); });
+        }
+
+        private void addSudoUserButton_Click(object sender, EventArgs e)
+        {
+            if (sudoUserAliasBox.Text != "" && sudoUserIDBox.Text != "")
+            {
+                try { File.AppendAllText(settingsDir + "@c_sudoUsers", sudoUserIDBox.Text + "|" + sudoUserAliasBox.Text + "\n"); } catch { }
+
+                rfrshUsrLst();
+
+                sudoUserAliasBox.Text = "";
+                sudoUserIDBox.Text = "";
+            }
+        }
+
+        private void removeSudoUserButton_Click(object sender, EventArgs e)
+        {
+            try { File.WriteAllLines(settingsDir + "@c_sudoUsers", File.ReadLines(settingsDir + "@c_sudoUsers").Where(l => l != File.ReadLines(settingsDir + "@c_sudoUsers").ElementAt(sudoUsersListBox.SelectedIndex)).ToList()); } catch { }
+
+            while (sudoUsersListBox.SelectedItems.Count > 0) { sudoUsersListBox.Items.Remove(sudoUsersListBox.SelectedItems[0]); }
+            if (sudoUsersListBox.Items.Count != 0) sudoUsersListBox.SelectedIndex = 0;
         }
 
         private void exitButton_Click(object sender, EventArgs e)
@@ -78,12 +118,12 @@ namespace DiscordRC
 
         private void exitButton_MouseEnter(object sender, EventArgs e)
         {
-            exitColor(237, 66, 69, "White");
+            exitClr(237, 66, 69, "White");
         }
 
         private void exitButton_MouseLeave(object sender, EventArgs e)
         {
-            exitColor(32, 34, 37, "Gray");
+            exitClr(32, 34, 37, "Gray");
         }
 
         private void titlebarPanel_MouseDown(object sender, MouseEventArgs e)
@@ -108,12 +148,17 @@ namespace DiscordRC
             tokenBox.ReadOnly = vis == true ? false : true;
         }
 
-        private void useLogsCheckbox_CheckedChanged(object sender, EventArgs e)
+        private void rfrshUsrLst()
         {
-            if (useLogsCheckbox.Checked == true) File.WriteAllText(settingsDir + ".c_enableLogging", ""); else File.Delete(settingsDir + ".c_enableLogging");
+            sudoUsersListBox.Items.Clear();
+            foreach (string userID in File.ReadAllLines(settingsDir + "@c_sudoUsers"))
+            {
+                string[] test = userID.Split('|');
+                sudoUsersListBox.Items.Add(test[1]);
+            }
         }
 
-        private void exitColor(int r, int g, int b, string knownColor)
+        private void exitClr(int r, int g, int b, string knownColor)
         {
             exitButton.BackColor = Color.FromArgb(r, g, b);
             exitButton.ForeColor = Color.FromName(knownColor);

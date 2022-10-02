@@ -27,8 +27,8 @@ namespace DiscordRC
         string sessDate;
         // pathing
         const string dir = "discordrc\\";
-        const string settingsDir = dir + ".settings\\";
-        const string logsDir = dir + ".logs\\";
+        const string settingsDir = dir + "@settings\\";
+        const string logsDir = dir + "@logs\\";
 
         public program()
         {
@@ -94,16 +94,16 @@ namespace DiscordRC
             {
                 if (isForSettings == false)
                 {
-                    try { File.Delete(dir + "session@" + sessDate + ".bat"); } catch { }
+                    try { File.Delete(dir + "@session@" + sessDate + ".bat"); } catch { }
                     sessDate = DateTime.Now.ToString("Mdy-hms");
-                    if (!File.Exists(settingsDir + ".token.json"))
+                    if (!File.Exists(settingsDir + "@token.json"))
                     {
-                        MessageBox.Show("No bot token found.\nPlease configure it in settings.");
+                        MessageBox.Show("Your bot token was not found.\nPlease configure it in settings.");
                         return;
                     }
 
-                    try { File.WriteAllText(dir + "session@" + sessDate + ".bat", File.Exists(settingsDir + ".c_enableLogging") ? "@echo off & cd \"discordrc\" 2> nul & title DiscordRC " + ver + " & powershell -command \"\"node\\node.exe\" \"main.js\" /e | tee-object \".logs\\.log@" + sessDate + ".log\"\"" : "@echo off & cd \"discordrc\" 2> nul & title DiscordRC v1.0.0 & \"node\\node.exe\" \"main.js\""); } catch { }
-                    try { Process.Start(Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase) + "\\" + dir + "session@" + sessDate + ".bat"); } catch { }
+                    try { File.WriteAllText(dir + "@session@" + sessDate + ".bat", File.Exists(settingsDir + "@c_enableLogging") ? "@echo off & cd \"discordrc\" 2> nul & title DiscordRC " + ver + " & powershell -command \"\"node\\node.exe\" \"main.js\" /e | tee-object \"@logs\\@log@" + sessDate + ".log\"\"" : "@echo off & cd \"discordrc\" 2> nul & title DiscordRC v1.0.0 & \"node\\node.exe\" \"main.js\""); } catch { }
+                    try { Process.Start(Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase) + "\\" + dir + "@session@" + sessDate + ".bat"); } catch { }
                 }
                 else
                 {
@@ -115,7 +115,7 @@ namespace DiscordRC
 
         private void exitHandler()
         {
-            try { File.Delete(dir + "session@" + sessDate + ".bat"); } catch { }
+            try { File.Delete(dir + "@session@" + sessDate + ".bat"); } catch { }
         }
 
         private void exitColor(int r, int g, int b, string knownColor)
