@@ -61,7 +61,7 @@
             this.titlebarBanner.Name = "titlebarBanner";
             this.titlebarBanner.Size = new System.Drawing.Size(75, 16);
             this.titlebarBanner.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.titlebarBanner.TabIndex = 2;
+            this.titlebarBanner.TabIndex = 0;
             this.titlebarBanner.TabStop = false;
             this.titlebarBanner.MouseDown += new System.Windows.Forms.MouseEventHandler(this.titlebarBanner_MouseDown);
             // 
@@ -74,7 +74,7 @@
             this.exitButton.Location = new System.Drawing.Point(345, 1);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(28, 28);
-            this.exitButton.TabIndex = 2;
+            this.exitButton.TabIndex = 1;
             this.exitButton.Text = "✖";
             this.exitButton.UseVisualStyleBackColor = false;
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
@@ -90,7 +90,7 @@
             this.minimizeButton.Location = new System.Drawing.Point(318, 1);
             this.minimizeButton.Name = "minimizeButton";
             this.minimizeButton.Size = new System.Drawing.Size(28, 28);
-            this.minimizeButton.TabIndex = 3;
+            this.minimizeButton.TabIndex = 0;
             this.minimizeButton.Text = "─";
             this.minimizeButton.UseVisualStyleBackColor = false;
             this.minimizeButton.Click += new System.EventHandler(this.minimizeButton_Click);
@@ -105,7 +105,7 @@
             this.startButton.Location = new System.Drawing.Point(87, 180);
             this.startButton.Name = "startButton";
             this.startButton.Size = new System.Drawing.Size(166, 26);
-            this.startButton.TabIndex = 1;
+            this.startButton.TabIndex = 2;
             this.startButton.Text = "Go Online";
             this.startButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.startButton.UseVisualStyleBackColor = false;
@@ -117,7 +117,7 @@
             this.rightBar.Location = new System.Drawing.Point(286, 24);
             this.rightBar.Name = "rightBar";
             this.rightBar.Size = new System.Drawing.Size(81, 188);
-            this.rightBar.TabIndex = 4;
+            this.rightBar.TabIndex = 0;
             // 
             // leftBar
             // 
@@ -125,7 +125,7 @@
             this.leftBar.Location = new System.Drawing.Point(-1, 24);
             this.leftBar.Name = "leftBar";
             this.leftBar.Size = new System.Drawing.Size(81, 188);
-            this.leftBar.TabIndex = 5;
+            this.leftBar.TabIndex = 0;
             // 
             // settingsButton
             // 
@@ -136,7 +136,7 @@
             this.settingsButton.Location = new System.Drawing.Point(253, 180);
             this.settingsButton.Name = "settingsButton";
             this.settingsButton.Size = new System.Drawing.Size(26, 26);
-            this.settingsButton.TabIndex = 1;
+            this.settingsButton.TabIndex = 3;
             this.settingsButton.UseVisualStyleBackColor = false;
             this.settingsButton.Click += new System.EventHandler(this.settingsButton_Click);
             // 
@@ -149,7 +149,7 @@
             this.verLabel.Location = new System.Drawing.Point(249, 167);
             this.verLabel.Name = "verLabel";
             this.verLabel.Size = new System.Drawing.Size(32, 12);
-            this.verLabel.TabIndex = 6;
+            this.verLabel.TabIndex = 0;
             this.verLabel.Text = "v1.0.0";
             // 
             // program
@@ -190,4 +190,3 @@
         private System.Windows.Forms.Label verLabel;
     }
 }
-

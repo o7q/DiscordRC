@@ -1,0 +1,21 @@
+DISCORDRC:
+	DiscordRC.exe
+
+RCBOT:
+	node
+	node_modules
+	node_modules_install.bat
+	start_debug.bat
+	main.js
+	package.json
+	package-lock.json
+
+TRANSIT_OPERATOR:
+	discordrc_transit_operator.exe (shipping)
+
+TRANSIT_DUMMY:
+	discordrc_transit_dummy.exe (shipping)
+
+DLLS:
+	libstdc++-6.dll
+	libgcc_s_dw2-1.dll

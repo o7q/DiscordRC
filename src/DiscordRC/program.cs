@@ -20,9 +20,15 @@ namespace DiscordRC
         [DllImportAttribute("user32.dll")]
         public static extern bool ReleaseCapture();
 
+        // configure global variables
+
+        // misc.
         const string ver = "v1.0.0";
-        const string settingsDir = "discordrc\\.settings";
-        string sessDate = DateTime.Now.ToString("Mdy-hms");
+        string sessDate;
+        // pathing
+        const string dir = "discordrc\\";
+        const string settingsDir = dir + ".settings\\";
+        const string logsDir = dir + ".logs\\";
 
         public program()
         {
@@ -31,8 +37,8 @@ namespace DiscordRC
 
         private void program_Load(object sender, EventArgs e)
         {
-            try { Directory.CreateDirectory("discordrc\\.settings"); } catch { }
-            try { Directory.CreateDirectory("discordrc\\.logs"); } catch { }
+            try { Directory.CreateDirectory(settingsDir); } catch { }
+            try { Directory.CreateDirectory(logsDir); } catch { }
         }
 
         private void program_FormClosing(object sender, FormClosingEventArgs e)
@@ -82,20 +88,22 @@ namespace DiscordRC
         }
 
         private void startHandler(bool isForSettings, bool progOpen = false)
-        {         
+        {
             foreach (Process progOpenCheck in Process.GetProcesses()) if (progOpenCheck.ProcessName.Contains("discordrc_transit_dummy")) progOpen = true;
             if (progOpen == false)
             {
-                if (!File.Exists(settingsDir + "\\.token.json"))
-                {
-                    MessageBox.Show("No bot token found.\nPlease configure it in settings.");
-                    return;
-                }
-
                 if (isForSettings == false)
                 {
-                    try { File.WriteAllText("discordrc\\session@" + sessDate + ".bat", "@echo off & cd \"discordrc\" 2> nul & title DiscordRC " + ver + " & powershell -command \"\"node\\node.exe\" \"main.js\" /e | tee-object \".logs\\.log@" + sessDate + ".log\"\""); } catch { }
-                    try { Process.Start(Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase) + "\\discordrc\\session@" + sessDate + ".bat"); } catch { }
+                    try { File.Delete(dir + "session@" + sessDate + ".bat"); } catch { }
+                    sessDate = DateTime.Now.ToString("Mdy-hms");
+                    if (!File.Exists(settingsDir + ".token.json"))
+                    {
+                        MessageBox.Show("No bot token found.\nPlease configure it in settings.");
+                        return;
+                    }
+
+                    try { File.WriteAllText(dir + "session@" + sessDate + ".bat", File.Exists(settingsDir + ".c_enableLogging") ? "@echo off & cd \"discordrc\" 2> nul & title DiscordRC " + ver + " & powershell -command \"\"node\\node.exe\" \"main.js\" /e | tee-object \".logs\\.log@" + sessDate + ".log\"\"" : "@echo off & cd \"discordrc\" 2> nul & title DiscordRC v1.0.0 & \"node\\node.exe\" \"main.js\""); } catch { }
+                    try { Process.Start(Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase) + "\\" + dir + "session@" + sessDate + ".bat"); } catch { }
                 }
                 else
                 {
@@ -107,7 +115,7 @@ namespace DiscordRC
 
         private void exitHandler()
         {
-            try { File.Delete("discordrc\\session@" + sessDate + ".bat"); } catch { }
+            try { File.Delete(dir + "session@" + sessDate + ".bat"); } catch { }
         }
 
         private void exitColor(int r, int g, int b, string knownColor)

@@ -1,5 +1,4 @@
 - Add a feature to give certain people certain perms (currently anyone can use the bot which is bad!)
 - Add a bot status feature within the main UI
-- Fully implement the "Clear Logs" button
 - Make the UI more fancy
 - Add more commands

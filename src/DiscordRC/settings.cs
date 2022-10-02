@@ -2,6 +2,7 @@
 using System.IO;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace DiscordRC
@@ -18,7 +19,12 @@ namespace DiscordRC
         [DllImportAttribute("user32.dll")]
         public static extern bool ReleaseCapture();
 
-        const string settingsDir = "discordrc\\.settings";
+        // configure global variables
+
+        // pathing
+        const string dir = "discordrc\\";
+        const string settingsDir = dir + ".settings\\";
+        const string logsDir = dir + ".logs\\";
 
         public settings()
         {
@@ -27,16 +33,23 @@ namespace DiscordRC
 
         private void settings_Load(object sender, EventArgs e)
         {
-            if (File.Exists(settingsDir + "\\.token"))
+            if (File.Exists(settingsDir + ".token"))
             {
-                try { tokenBox.Text = File.ReadAllText(settingsDir + "\\.token"); } catch { }
+                try { tokenBox.Text = File.ReadAllText(settingsDir + ".token"); } catch { }
                 tokenVis(false);
+            }
+
+            if (File.Exists(settingsDir + ".c_enableLogging") || !File.Exists(settingsDir + ".c_defaults"))
+            {
+                useLogsCheckbox.Checked = true;
+                File.WriteAllText(settingsDir + ".c_defaults", "");
             }
         }
 
         private void acceptTokenButton_Click(object sender, EventArgs e)
         {
-            string[] tokenPaths = { settingsDir + "\\.token.json", settingsDir + "\\.token" };
+            if (tokenBox.Text == "") return;
+            string[] tokenPaths = { settingsDir + ".token.json", settingsDir + ".token" };
             string[] tokenItems = { "{\"token\":\"" + tokenBox.Text + "\"}", tokenBox.Text };
             for (int i = 0; i < 2; i++)
             {
@@ -48,29 +61,19 @@ namespace DiscordRC
 
         private void resetTokenButton_Click(object sender, EventArgs e)
         {
-            string[] tokenPaths = { settingsDir + "\\.token.json", settingsDir + "\\.token" };
+            string[] tokenPaths = { settingsDir + ".token.json", settingsDir + ".token" };
             for (int i = 0; i < 2; i++) try { File.Delete(tokenPaths[i]); } catch { }
             tokenVis(true);
+        }
+
+        private void clearLogsButton_Click(object sender, EventArgs e)
+        {
+            new List<string>(Directory.GetFiles(logsDir)).ForEach(file => { if (file.IndexOf(".log@", StringComparison.OrdinalIgnoreCase) >= 0) File.Delete(file); });
         }
 
         private void exitButton_Click(object sender, EventArgs e)
         {
             Close();
-        }
-
-        private void tokenVis(bool vis)
-        {
-            if (vis == true)
-            {
-                tokenBox.Text = "";
-                tokenBox.PasswordChar = '\0';
-                tokenBox.ReadOnly = false;
-            }
-            if (vis == false)
-            {
-                tokenBox.PasswordChar = '•';
-                tokenBox.ReadOnly = true;
-            }
         }
 
         private void exitButton_MouseEnter(object sender, EventArgs e)
@@ -96,6 +99,18 @@ namespace DiscordRC
         private void settingsLabel_MouseDown(object sender, MouseEventArgs e)
         {
             mvFrm(e);
+        }
+
+        private void tokenVis(bool vis)
+        {
+            if (vis == true) tokenBox.Text = "";
+            tokenBox.PasswordChar = vis == true ? '\0' : '•';
+            tokenBox.ReadOnly = vis == true ? false : true;
+        }
+
+        private void useLogsCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (useLogsCheckbox.Checked == true) File.WriteAllText(settingsDir + ".c_enableLogging", ""); else File.Delete(settingsDir + ".c_enableLogging");
         }
 
         private void exitColor(int r, int g, int b, string knownColor)

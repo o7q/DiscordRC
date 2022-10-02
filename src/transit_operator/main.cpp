@@ -21,7 +21,7 @@ const string objDict[] = {"shell="}; // object dictionary
 
 main()
 {
-    cout << " transit-operator\n DiscordRC " + ver + " by o7q\n\n";
+    cout << " discordrc_transit_operator\n DiscordRC " + ver + " by o7q\n\n";
 
     // process transit
     ifstream readTransit("transit_to");
