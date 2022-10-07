@@ -1,6 +1,6 @@
 <img src="assets/images/readmebanner.png">
 
-# [<b>>> Download Latest</b>](LINK.7z)
+# [<b>>> Download Latest</b>](https://github.com/o7q/DiscordRC/releases/download/v1.0.0/DiscordRC.v1.0.0.7z)
 <h3>Welcome! DiscordRC is a simple tool that allows you to remotely control Windows-based systems with a Discord bot on any platform.
 
 It requires no prior installation other than configuring a Discord bot.</h3>
