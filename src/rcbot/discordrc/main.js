@@ -17,7 +17,7 @@ const client = new Client
 
 // misc.
 const pre = "$";                         // prefix
-const ver = "v1.0.0";                    // version
+const ver = "v1.1.0";                    // version
 const headTo = "# TRANSIT CONTENT [TO]"; // header
 var doShutdown = false;                  // do shutdown
 // object types
@@ -98,7 +98,7 @@ client.on("messageCreate", (message) =>
                 return;
             }
         
-            message.channel.send("Unknown command! (**$" + cmd + "**) (type $help for a list of commands)");   
+            message.channel.send('Unknown command! **"$' + cmd + '"** (type $help for a list of commands)');   
             console.log(in_log + "User tried an unknown command ($" + cmd + ")");   
         
             return;

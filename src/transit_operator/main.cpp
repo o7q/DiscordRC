@@ -17,7 +17,7 @@ void itemCleaner(int item);                   // item cleaner
 // configure global variables
 const string ver = "v1.1.0";         // version
 string transit_content;              // transit content
-const string objDict[] = {"shell="}; // object dictionary
+string objDict[] = {"shell"}; // object dictionary
 
 main()
 {
@@ -29,6 +29,7 @@ main()
     readTransit.close();
     for (size_t i = 0; i < sizeof(objDict) / sizeof(string); i++)
     {
+        objDict[i] += '=';
         if (transit_content.find(objDict[i], 0) != string::npos)
         {
             if (check(objDict[0]) == true) system(scrape(transit_content, objDict[0]).c_str());
