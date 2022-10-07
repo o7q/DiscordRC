@@ -40,7 +40,7 @@ discord.js: https://discord.js.org
 * Reset (deletes the token information from the config)
 
 <b>Logging</b> Configure the logging options
-* Clear Logs (deletes all logs with the `@log_` keyword in it)
+* Clear Logs (deletes all logs with the `.log` keyword in it)
 
 <b>Sudo Users</b> Configure who and who cannot use DiscordRC
 * The `Nickname` can be whatever you want, it just allows you to keep track of who has perms
