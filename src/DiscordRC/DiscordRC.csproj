@@ -98,6 +98,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="program_icon.ico" />
+    <None Include="Resources\cogOff.png" />
+    <None Include="Resources\online.png" />
+    <None Include="Resources\offline.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

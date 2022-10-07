@@ -1,7 +1,7 @@
 const { Client, GatewayIntentBits, InteractionCollector } = require("discord.js");
 const fs = require("fs");
 const { execFile } = require("child_process");
-const { token } = require("./@settings/@token.json");
+const { token } = require("./_settings/_token.json");
 
 const client = new Client
 ({
@@ -29,7 +29,7 @@ const lis_log = "[LISTENER] "; // listener logger
 // on ready
 client.once("ready", () =>
 {
-    execFile("discordrc_transit_dummy.exe", err => { if (err) { console.error(err) } });
+    execFile("rcbot_transit_dummy.exe", err => { if (err) { console.error(err) } });
 
     console.log("            __        __ \n",
                 "  ________/ /  ___  / /_\n",
@@ -43,11 +43,11 @@ client.once("ready", () =>
 // on message
 client.on("messageCreate", (message) =>
 {
-    var array = fs.readFileSync("@settings\\@c_sudoUsers").toString().split("\n");
-    for(i in array)
+    let userData = []; userData = fs.readFileSync("_settings\\_sudoUsers.setting").toString().split("\n");
+    for(i in userData)
     {
-        console.log(array[i]);
-        if (message.author.id == array[i])
+        let userIDData = []; userIDData = userData[i].split("|");
+        if (message.author.id == userIDData[0])
         {
             if (!message.content.startsWith(pre) || message.author.bot) return;
             const cmd = message.content.replace("$", "");
@@ -56,36 +56,8 @@ client.on("messageCreate", (message) =>
             if (cmd.startsWith("help"))
             {
                 const cmd_raw = cmd.replace("help ", "");
-                message.channel.send("**[DiscordRC Help]**\nWelcome to the DiscordRC help page!\n\n**[Commands]**\n**$help** (shows this message)\n**$shell** (executes a shell script)\n**$shutdown** (shuts down DiscordRC)\n**$info** (shows info about DiscordRC)");
+                message.channel.send("**[DiscordRC Help]**\nWelcome to the DiscordRC help page!\n\n**[Commands]**\n**$help** (shows this message)\n**$shell** (executes a shell script)\n**$rc_shutdown** (shuts down DiscordRC)\n**$info** (shows info about DiscordRC)");
                 console.log(in_log + "Displaying help information to the requester ($help)");
-
-                return;
-            }
-
-            if (cmd.startsWith("shell"))
-            {
-                const cmd_raw = cmd.replace("shell ", "");
-                message.channel.send('Sending (shell) "' + cmd_raw + '" to DiscordRC.');
-                console.log(lis_log + 'Heard (shell) request of "' + cmd_raw + '" ($shell) ');
-                transitOut(shell_obj + cmd_raw);
-
-                return;
-            }
-
-            if (cmd.startsWith("shutdown"))
-            {
-                if (doShutdown == true)
-                {
-                    message.channel.send("Shutting down...");
-                    console.log(in_log + "Recieved shutdown request ($shutdown) (state = " + doShutdown + ")\n -> [SHUTTING DOWN]");
-                    process.exit(0);
-                }
-                if (doShutdown == false)
-                {
-                    message.channel.send("Are you sure you want to shutdown **DiscordRC**? To confirm, type **$shutdown** again.");
-                    console.log(in_log + "Recieved shutdown request ($shutdown) (state = " + doShutdown + ")");
-                    doShutdown = true;
-                }
 
                 return;
             }
@@ -93,12 +65,41 @@ client.on("messageCreate", (message) =>
             if (cmd.startsWith("info"))
             {
                 message.channel.send("DiscordRC " + ver + " by o7q\nhttps://github.com/o7q/DiscordRC");
-                console.log(in_log + "Displaying DiscordRC info to the requester ($info)");
+                console.log(in_log + "Displaying DiscordRC information to the requester ($info)");
         
                 return;
             }
+
+            if (cmd.startsWith("shell"))
+            {
+                const cmd_raw = cmd.replace("shell ", "");
+                message.channel.send('Sending (shell) "**' + cmd_raw + '**" to DiscordRC.');
+                console.log(lis_log + 'Heard (shell) request of "' + cmd_raw + '" ($shell) ');
+                transitOut(shell_obj + cmd_raw);
+
+                return;
+            }
+
+            if (cmd.startsWith("rc_shutdown"))
+            {
+                if (doShutdown == true)
+                {
+                    message.channel.send("Shutting down...");
+                    console.log(in_log + "Recieved an rc_shutdown request ($rc_shutdown) (state = " + doShutdown + ")\n -> SHUTTING DOWN");
+                    process.exit(0);
+                }
+                if (doShutdown == false)
+                {
+                    message.channel.send("Are you sure you want to shutdown **DiscordRC**? To confirm, type **$rc_shutdown** again.");
+                    console.log(in_log + "Recieved an rc_shutdown request ($rc_shutdown) (state = " + doShutdown + ")");
+                    doShutdown = true;
+                }
+
+                return;
+            }
         
-            message.channel.send("Unknown command! (type $help for a list of commands)");
+            message.channel.send("Unknown command! (**$" + cmd + "**) (type $help for a list of commands)");   
+            console.log(in_log + "User tried an unknown command ($" + cmd + ")");   
         
             return;
         }
@@ -110,7 +111,7 @@ function transitOut(obj)
 {
     console.log(' -> Sending "' + obj + '" to the transit operator');
     fs.writeFile("transit_to", headTo + "\n" + obj, err => { if (err) { console.error(err) } });
-    execFile("discordrc_transit_operator.exe", err => { if (err) { console.error(err) } });
+    execFile("rcbot_transit_operator.exe", err => { if (err) { console.error(err) } });
 }
 
 // login

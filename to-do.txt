@@ -1,4 +1,0 @@
-- Add a feature to give certain people certain perms (currently anyone can use the bot which is bad!)
-- Add a bot status feature within the main UI
-- Make the UI more fancy
-- Add more commands

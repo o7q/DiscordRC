@@ -12,7 +12,7 @@ const string ver = "v1.0.0"; // version
 
 main()
 {
-    cout << " discordrc_transit_dummy\n DiscordRC " + ver + " by o7q\n\n";
+    cout << " rcbot_transit_dummy\n DiscordRC " + ver + " by o7q\n\n";
     loop();
     return 1;
 }

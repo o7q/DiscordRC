@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Timers;
 using System.Drawing;
 using System.Reflection;
 using System.Diagnostics;
@@ -23,12 +24,14 @@ namespace DiscordRC
         // configure global variables
 
         // misc.
-        const string ver = "v1.0.0";
-        string sessDate;
+        const string ver = "v1.0.0";                           // version
+        string sessDate;                                       // session date
+        int logReaderState = 0;                                // log reader state
+        string logReaderInfo = "[Click to show previous log]"; // log reader info
         // pathing
-        const string dir = "discordrc\\";
-        const string settingsDir = dir + "@settings\\";
-        const string logsDir = dir + "@logs\\";
+        const string dir = "discordrc\\";               // main directory
+        const string settingsDir = dir + "_settings\\"; // settings directory
+        const string logsDir = dir + "_logs\\";         // logs directory
 
         public program()
         {
@@ -37,8 +40,71 @@ namespace DiscordRC
 
         private void program_Load(object sender, EventArgs e)
         {
+            // create folders
             try { Directory.CreateDirectory(settingsDir); } catch { }
             try { Directory.CreateDirectory(logsDir); } catch { }
+            // create files
+            try { File.WriteAllText(dir + "_start_debug.bat", "@echo off & cd \"discordrc\" 2> nul & title DiscordRC " + ver + "   [DEBUG] & powershell -command \"\"node\\node.exe\" \"main.js\" /e | tee-object \"_logs\\_debug.log\"\""); } catch { }
+
+            // configure visuals
+            logBox.Text = logReaderInfo;
+            sessionInfoLabel.Text = "";
+
+            // configure & start doTick
+            System.Timers.Timer tick = new System.Timers.Timer();
+            tick.Elapsed += new ElapsedEventHandler(doTick);
+            tick.Interval = 1000;
+            tick.Enabled = true;
+
+            #region tooltipDictionary
+
+            // components
+            var component = new Control[] {
+                minimizeButton, // 0
+                exitButton, // 1
+                logBox, // 2
+                statusPicture, // 3
+                sessionInfoLabel, // 4
+                verLabel, // 5
+                startButton, // 6
+                settingsButton // 7
+            };
+
+            // tooltips
+            string[] tooltip = {
+                "Minimize", // 0
+                "Close", // 1
+                "Latest bot log (click to toggle view on and off)", // 2
+                "Bot status", // 3
+                "Session ID", // 4
+                "Running " + ver, // 5
+                "Start DiscordRC", // 6
+                "Open the settings window", // 7
+            };
+
+            #endregion
+
+            // configure tooltips
+            for (int i = 0; i < 8; i++) programToolTip.SetToolTip(component[i], tooltip[i]);
+
+            // configure tooltip draw
+            programToolTip.AutoPopDelay = 10000;
+            programToolTip.OwnerDraw = true;
+            programToolTip.ForeColor = Color.FromArgb(220, 221, 222);
+            programToolTip.BackColor = Color.FromArgb(47, 49, 54);
+        }
+
+        // draw tooltips
+        private void programToolTip_Draw(object sender, DrawToolTipEventArgs e)
+        {
+            e.DrawBackground();
+            e.DrawBorder();
+            e.DrawText();
+        }
+
+        private void doTick(object source, ElapsedEventArgs e)
+        {
+            processHandler(2);
         }
 
         private void program_FormClosing(object sender, FormClosingEventArgs e)
@@ -48,12 +114,12 @@ namespace DiscordRC
 
         private void startButton_Click(object sender, EventArgs e)
         {
-            startHandler(false);
+            processHandler(0);
         }
 
         private void settingsButton_Click(object sender, EventArgs e)
         {
-            startHandler(true);
+            processHandler(1);
         }
 
         private void minimizeButton_Click(object sender, EventArgs e)
@@ -67,14 +133,33 @@ namespace DiscordRC
             Application.Exit();
         }
 
+        private void logBox_MouseClick(object sender, MouseEventArgs e)
+        {
+            // refresh logbox
+            if (logReaderState == 0)
+            {
+                string[] logPaths = { logsDir + "_latest.log", logsDir + "_" + sessDate + ".log" };
+                for (int i = 0; i < 2; i++) try { logBox.Text = File.ReadAllText(logPaths[i]); } catch { }
+                try { File.WriteAllText(logsDir + "_latest.log", logBox.Text); } catch { }
+                if (logBox.Text != logReaderInfo) componentStyle("logBox", 220, 221, 222, null);
+                logReaderState = 1;
+            }
+            else
+            {
+                logBox.Text = logReaderInfo;
+                componentStyle("logBox", 120, 121, 122, null);
+                logReaderState = 0;
+            }
+        }
+
         private void exitButton_MouseEnter(object sender, EventArgs e)
         {
-            exitColor(237, 66, 69, "White");
+            componentStyle("exitButton", 237, 66, 69, "White");
         }
 
         private void exitButton_MouseLeave(object sender, EventArgs e)
         {
-            exitColor(32, 34, 37, "Gray");
+            componentStyle("exitButton", 32, 34, 37, "Gray");
         }
 
         private void titlebarPanel_MouseDown(object sender, MouseEventArgs e)
@@ -87,41 +172,67 @@ namespace DiscordRC
             mvFrm(e);
         }
 
-        private void startHandler(bool isForSettings, bool progOpen = false)
+        private void processHandler(int mode, bool progOpen = false)
         {
-            foreach (Process progOpenCheck in Process.GetProcesses()) if (progOpenCheck.ProcessName.Contains("discordrc_transit_dummy")) progOpen = true;
+            // check if rcbot is already running
+            foreach (Process progOpenCheck in Process.GetProcesses()) if (progOpenCheck.ProcessName.Contains("rcbot_transit_dummy")) progOpen = true;
             if (progOpen == false)
             {
-                if (isForSettings == false)
+                componentStyle("statusOffline", 220, 221, 222, null);
+                if (mode == 0)
                 {
-                    try { File.Delete(dir + "@session@" + sessDate + ".bat"); } catch { }
-                    sessDate = DateTime.Now.ToString("Mdy-hms");
-                    if (!File.Exists(settingsDir + "@token.json"))
+                    // check if the token is configured
+                    if (!File.Exists(settingsDir + "_token.json"))
                     {
-                        MessageBox.Show("Your bot token was not found.\nPlease configure it in settings.");
+                        MessageBox.Show("Your bot token is not configured.");
                         return;
                     }
 
-                    try { File.WriteAllText(dir + "@session@" + sessDate + ".bat", File.Exists(settingsDir + "@c_enableLogging") ? "@echo off & cd \"discordrc\" 2> nul & title DiscordRC " + ver + " & powershell -command \"\"node\\node.exe\" \"main.js\" /e | tee-object \"@logs\\@log@" + sessDate + ".log\"\"" : "@echo off & cd \"discordrc\" 2> nul & title DiscordRC v1.0.0 & \"node\\node.exe\" \"main.js\""); } catch { }
-                    try { Process.Start(Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase) + "\\" + dir + "@session@" + sessDate + ".bat"); } catch { }
+                    // start rcbot
+                    logBox.Text = logReaderInfo;
+                    try { File.WriteAllText(logsDir + "_latest.log", logBox.Text); } catch { }
+                    componentStyle("logBox", 120, 121, 122, null);
+                    sessDate = DateTime.Now.ToString("Mdy-hms");
+                    sessionInfoLabel.Text = "Session ID: " + sessDate;
+                    try { File.WriteAllText(dir + "_start.bat", File.Exists(settingsDir + "_enableLogging.setting") ? "@echo off & cd \"discordrc\" 2> nul & title DiscordRC " + ver + "   [" + sessDate + "] & powershell -command \"\"node\\node.exe\" \"main.js\" /e | tee-object \"_logs\\_" + sessDate + ".log\"\"" : "@echo off & cd \"discordrc\" 2> nul & title DiscordRC " + ver + "   [" + sessDate + "] & \"node\\node.exe\" \"main.js\""); } catch { }
+                    ProcessStartInfo rcbot = new ProcessStartInfo();
+                    rcbot.WindowStyle = ProcessWindowStyle.Minimized;
+                    rcbot.FileName = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase) + "\\" + dir + "_start.bat";
+                    Process.Start(rcbot);
                 }
-                else
+                if (mode == 1)
                 {
                     settings settings_form = new settings();
                     settings_form.ShowDialog();
                 }
             }
+            else componentStyle("statusOnline", 120, 121, 122, null);
         }
 
         private void exitHandler()
         {
-            try { File.Delete(dir + "@session@" + sessDate + ".bat"); } catch { }
+            try { File.Delete(dir + "_start.bat"); } catch { }
         }
 
-        private void exitColor(int r, int g, int b, string knownColor)
+        private void componentStyle(string component, int r, int g, int b, string knownColor)
         {
-            exitButton.BackColor = Color.FromArgb(r, g, b);
-            exitButton.ForeColor = Color.FromName(knownColor);
+            // exit button styling
+            if (component == "exitButton")
+            {
+                exitButton.BackColor = Color.FromArgb(r, g, b);
+                exitButton.ForeColor = Color.FromName(knownColor);
+            }
+
+            // logbox styling
+            if (component == "logBox") logBox.ForeColor = Color.FromArgb(r, g, b);
+
+            // status styling
+            if (component == "statusOnline" || component == "statusOffline")
+            {
+                startButton.ForeColor = Color.FromArgb(r, g, b);
+                settingsButton.Image = component == "statusOnline" ? Properties.Resources.cogOff : Properties.Resources.cog;
+                statusPicture.Image = component == "statusOnline" ? Properties.Resources.online : Properties.Resources.offline;
+            }
         }
 
         private void mvFrm(MouseEventArgs e)

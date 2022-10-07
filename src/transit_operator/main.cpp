@@ -10,9 +10,9 @@ using namespace std;
 #define itemCleaner clean
 
 // functions
-bool objChecker(string piece);                  // object checker
-string objScraper(string chunk, string chisel); // object scraper
-void itemCleaner(int item);                     // item cleaner
+bool objChecker(string piece);                // object checker
+string objScraper(string chunk, string junk); // object scraper
+void itemCleaner(int item);                   // item cleaner
 
 // configure global variables
 const string ver = "v1.0.0";         // version
@@ -21,7 +21,7 @@ const string objDict[] = {"shell="}; // object dictionary
 
 main()
 {
-    cout << " discordrc_transit_operator\n DiscordRC " + ver + " by o7q\n\n";
+    cout << " rcbot_transit_operator\n DiscordRC " + ver + " by o7q\n\n";
 
     // process transit
     ifstream readTransit("transit_to");
@@ -29,7 +29,6 @@ main()
     readTransit.close();
     for (size_t i = 0; i < sizeof(objDict) / sizeof(string); i++)
     {
-        //size_t match_index = transit_content.find(objDict[i], 0);
         if (transit_content.find(objDict[i], 0) != string::npos)
         {
             if (check(objDict[0]) == true) system(scrape(transit_content, objDict[0]).c_str());

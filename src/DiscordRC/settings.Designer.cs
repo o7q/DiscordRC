@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(settings));
             this.tokenBox = new System.Windows.Forms.TextBox();
             this.acceptTokenButton = new System.Windows.Forms.Button();
@@ -52,6 +53,7 @@
             this.sudoUserAliasBox = new System.Windows.Forms.TextBox();
             this.aliasLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.settingsToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.titlebarPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.titlebarBanner)).BeginInit();
             this.SuspendLayout();
@@ -327,6 +329,10 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "ID";
             // 
+            // settingsToolTip
+            // 
+            this.settingsToolTip.Draw += new System.Windows.Forms.DrawToolTipEventHandler(this.settingsToolTip_Draw);
+            // 
             // settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -391,5 +397,6 @@
         private System.Windows.Forms.TextBox sudoUserAliasBox;
         private System.Windows.Forms.Label aliasLabel;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ToolTip settingsToolTip;
     }
 }
