@@ -15,7 +15,7 @@ string objScraper(string chunk, string junk); // object scraper
 void itemCleaner(int item);                   // item cleaner
 
 // configure global variables
-const string ver = "v1.0.0";         // version
+const string ver = "v1.1.0";         // version
 string transit_content;              // transit content
 const string objDict[] = {"shell="}; // object dictionary
 

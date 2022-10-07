@@ -8,7 +8,7 @@ using namespace std;
 void dummyLoop(); // dummy loop
 
 // configure global variables
-const string ver = "v1.0.0"; // version
+const string ver = "v1.1.0"; // version
 
 main()
 {

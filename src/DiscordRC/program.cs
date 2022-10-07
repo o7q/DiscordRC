@@ -24,10 +24,10 @@ namespace DiscordRC
         // configure global variables
 
         // misc.
-        const string ver = "v1.0.0";                           // version
-        string sessDate;                                       // session date
-        int logReaderState = 0;                                // log reader state
-        string logReaderInfo = "[Click to show previous log]"; // log reader info
+        const string ver = "v1.1.0";                                        // version
+        string sessDate;                                                    // session date
+        int logReaderState = 0;                                             // log reader state
+        string logReaderInfo = "         [Click to show the previous log]"; // log reader info
         // pathing
         const string dir = "discordrc\\";               // main directory
         const string settingsDir = dir + "_settings\\"; // settings directory

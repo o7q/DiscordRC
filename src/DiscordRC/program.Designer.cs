@@ -143,7 +143,7 @@
             this.verLabel.Name = "verLabel";
             this.verLabel.Size = new System.Drawing.Size(32, 12);
             this.verLabel.TabIndex = 0;
-            this.verLabel.Text = "v1.0.0";
+            this.verLabel.Text = "v1.1.0";
             // 
             // logBox
             // 
