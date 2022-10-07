@@ -1,4 +1,4 @@
-<h3><b>NOTICE: This program is in its prototype phase! It is not very feature packed at the moment but it does work.</b></h3>
+<h3><b>NOTICE: This program is currently in its prototype phase! It is not very feature packed at the moment but it does work.</b></h3>
 
 <img src="assets/images/readmebanner.png">
 
