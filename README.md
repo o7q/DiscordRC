@@ -1,3 +1,5 @@
+<h3><b>NOTICE: This program is in its prototype phase! It is not very feature packed at the moment but it does work.</b></h3>
+
 <img src="assets/images/readmebanner.png">
 
 # [<b>>> Download Latest</b>](https://github.com/o7q/DiscordRC/releases/download/v1.0.0/DiscordRC.v1.0.0.7z)
