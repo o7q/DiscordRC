@@ -17,7 +17,7 @@ void itemCleaner(int item);                   // item cleaner
 // configure global variables
 const string ver = "v1.1.0";         // version
 string transit_content;              // transit content
-string objDict[] = {"shell"}; // object dictionary
+string objDict[] = {"shell"};        // object dictionary
 
 main()
 {
