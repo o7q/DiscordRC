@@ -1,0 +1,72 @@
+@font-face
+{
+    font-family: KarrikRegular;
+    src: url(../../assets/fonts/karrikregular.ttf);
+}
+
+::-webkit-scrollbar
+{
+    width: 0.75em;
+}
+
+::-webkit-scrollbar-thumb
+{
+    border-radius: 100px;
+    background: #36393F;
+}
+
+::-webkit-scrollbar-track
+{
+    background: #202225;
+}
+
+body
+{
+    text-align: center;
+    background-image: linear-gradient(#202225, #36393F);
+}
+
+.headDesc
+{
+    margin: 0 auto;
+    font-family: KarrikRegular;
+    font-size: 15px;
+    inline-size: 600px;
+    color: #C0C0C0;
+}
+
+.dlButton
+{
+    padding: 10px 25px;
+    background-image: linear-gradient(#202225, #5165F633);
+    border: 3px solid #5165F6;
+    border-radius: 100px;
+    font-family: KarrikRegular;
+    font-size: 30px;
+    color: #5165F6;
+    text-decoration: none;
+    transition: all 0.15s ease-in-out;
+}
+.dlButton:hover
+{
+    color: #5165F6;
+    border: 3px solid #5165F6;
+    box-shadow: 0 5px 15px #5165F633;
+}
+
+.dlButtonAll
+{
+    position: relative;
+    top: 15px;
+    font-family: KarrikRegular;
+    color: #3A48B3;
+    text-decoration: none;
+}
+
+.copyrightText
+{
+    font-family: KarrikRegular;
+    font-size: 10px;
+    color: #696969;
+    padding-top: 5px;
+}
