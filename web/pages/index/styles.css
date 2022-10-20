@@ -23,7 +23,7 @@
 body
 {
     text-align: center;
-    background-image: linear-gradient(#202225, #36393F);
+    background-image: linear-gradient(#111214, #25272b);
 }
 
 .headDesc
@@ -32,7 +32,13 @@ body
     font-family: KarrikRegular;
     font-size: 15px;
     inline-size: 600px;
-    color: #C0C0C0;
+    color: #A1A1A1;
+}
+
+.headProgram
+{
+    border: 3px solid #36393F;
+    border-radius: 3px;
 }
 
 .dlButton
@@ -59,7 +65,7 @@ body
     position: relative;
     top: 15px;
     font-family: KarrikRegular;
-    color: #3A48B3;
+    color: #4050C7;
     text-decoration: none;
 }
 
