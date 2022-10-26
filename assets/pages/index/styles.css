@@ -76,3 +76,14 @@ body
     color: #696969;
     padding-top: 5px;
 }
+
+/* functions */
+.disablePointer
+{
+    cursor: default;
+}
+
+.disableSelect
+{
+    user-select: none;
+}
