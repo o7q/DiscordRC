@@ -8,13 +8,11 @@
 {
     width: 0.75em;
 }
-
 ::-webkit-scrollbar-thumb
 {
     border-radius: 100px;
     background: #36393F;
 }
-
 ::-webkit-scrollbar-track
 {
     background: #202225;
