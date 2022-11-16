@@ -25,37 +25,33 @@ discord.js: https://discord.js.org
 
 # Usage
 
-## <b>Commands</b>
-<b>$help</b> Displays the DiscordRC help page \
-<b>$shell</b> Executes a shell script \
-<b>$rc_shutdown</b> Shuts down DiscordRC \
-<b>$info</b> Displays info about DiscordRC
+## <b>Interface</b>
+- <b>Log Textbox</b> Displays the previous log after DiscordRC shuts down. Clicking will toggle the viewer on and off
+- <b>Go Online</b> Starts the DiscordRC `rcbot` and starts listening in all servers it is present in
+- <b>Settings Cog</b> Opens the settings window
+- <b>Settings</b>
+    - <b>Bot Token</b> Manage your Discord bot token
+        - Register (stores the token information to the config)
+        - Reset (deletes the token information from the config)
+    - <b>Logging</b> Configure the logging options
+        - Clear Logs (deletes all logs with the `.log` keyword in it)
+    - <b>Sudo Users</b> Configure who and who cannot use DiscordRC
+        - The `Nickname` can be whatever you want, it just allows you to keep track of who has perms
+    - The `ID` refers to the users `Discord ID`
 
-## <b>Components</b>
-<b>Log Textbox</b> Displays the previous log after DiscordRC shuts down. Clicking will toggle the viewer on and off. \
-<b>Go Online</b> Starts the DiscordRC `rcbot` and starts listening in all servers it is present in \
-<b>Settings Cog</b> Opens the settings window
-
-## <b>Settings</b>
-<b>Bot Token</b> Manage your Discord bot token
-* Register (stores the token information to the config)
-* Reset (deletes the token information from the config)
-
-<b>Logging</b> Configure the logging options
-* Clear Logs (deletes all logs with the `.log` keyword in it)
-
-<b>Sudo Users</b> Configure who and who cannot use DiscordRC
-* The `Nickname` can be whatever you want, it just allows you to keep track of who has perms
-* The `ID` refers to the users `Discord ID`
+## <b>Discord Commands</b>
+- <b>$help</b> Displays the DiscordRC help page
+- <b>$shell</b> Executes a shell script
+- <b>$rc_shutdown</b> Shuts down DiscordRC
+- <b>$info</b> Displays info about DiscordRC
 
 ---
 
 <b>DiscordRC</b> \
-<i>Programmed with C# and .NET Framework 4.8</i> \
-<i>* If you want to compile the code yourself I highly recommend using Visual Studio</i>
+Programmed with C# and .NET Framework 4.8
 
 <b>rcbot</b> \
-<i>Progammed with JavaScript, Node.js, and discord.js</i>
+Progammed with JavaScript, Node.js, and discord.js
 
 <b>transit_operator & transit_dummy</b> \
-<i>Programmed with C++ and compiled using MinGW G++</i>
+Programmed with C++ and compiled using MinGW G++

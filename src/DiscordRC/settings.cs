@@ -23,9 +23,9 @@ namespace DiscordRC
         // configure global variables
 
         // pathing
-        const string dir = "discordrc\\";               // main directory
+        const string dir = "discordrc\\"; // main directory
         const string settingsDir = dir + "_settings\\"; // settings directory
-        const string logsDir = dir + "_logs\\";         // logs directory
+        const string logsDir = dir + "_logs\\"; // logs directory
 
         public settings()
         {
@@ -84,7 +84,7 @@ namespace DiscordRC
             #endregion
 
             // configure tooltips
-            for (int i = 0; i < 11; i++) settingsToolTip.SetToolTip(component[i], tooltip[i]);
+            for (int i = 0; i <= 10; i++) settingsToolTip.SetToolTip(component[i], tooltip[i]);
 
             // configure tooltip draw
             settingsToolTip.AutoPopDelay = 10000;
@@ -109,7 +109,7 @@ namespace DiscordRC
             for (int i = 0; i < tokenLength; i++) { tokenMask += "."; }
             string[] tokenPaths = { settingsDir + "_token.json", settingsDir + "_tokenMask" };
             string[] tokenItems = { "{\"token\":\"" + tokenBox.Text + "\"}", tokenMask };
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i <= 1; i++)
             {
                 try { File.WriteAllText(tokenPaths[i], tokenItems[i]); } catch { }
                 try { File.SetAttributes(tokenPaths[i], FileAttributes.Hidden); } catch { }
@@ -127,7 +127,7 @@ namespace DiscordRC
 
         private void useLogsCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            try { if (useLogsCheckbox.Checked == true) File.WriteAllText(settingsDir + "_enableLogging.setting", ""); else File.Delete(settingsDir + "_enableLogging.setting"); } catch { }
+            try { if (useLogsCheckbox.Checked) File.WriteAllText(settingsDir + "_enableLogging.setting", ""); else File.Delete(settingsDir + "_enableLogging.setting"); } catch { }
         }
 
         private void clearLogsButton_Click(object sender, EventArgs e)
@@ -188,7 +188,7 @@ namespace DiscordRC
 
         private void tokenVis(bool vis)
         {
-            if (vis == true) tokenBox.Text = "";
+            if (vis) tokenBox.Text = "";
             tokenBox.PasswordChar = vis == true ? '\0' : '•';
             tokenBox.ReadOnly = vis == true ? false : true;
         }
