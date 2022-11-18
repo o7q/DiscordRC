@@ -32,7 +32,7 @@ main()
         objDict[i] += '=';
         if (transit_content.find(objDict[i], 0) != string::npos)
         {
-            if (check(objDict[0]) == true) system(scrape(transit_content, objDict[0]).c_str());
+            if (check(objDict[0])) system(scrape(transit_content, objDict[0]).c_str());
         }
     }
 

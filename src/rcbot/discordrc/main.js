@@ -16,14 +16,14 @@ const client = new Client
 // configure global variables
 
 // misc.
-const pre = "$";                         // prefix
-const ver = "v1.1.0";                    // version
+const pre = "$"; // prefix
+const ver = "v1.1.0"; // version
 const headTo = "# TRANSIT CONTENT [TO]"; // header
-var doShutdown = false;                  // do shutdown
+var doShutdown = false; // do shutdown
 // object types
 const shell_obj = "shell=";
 // log types
-const in_log = "[INFO] ";      // info logger
+const in_log = "[INFO] "; // info logger
 const lis_log = "[LISTENER] "; // listener logger
 
 // on ready
@@ -55,18 +55,15 @@ client.on("messageCreate", (message) =>
 
             if (cmd.startsWith("help"))
             {
-                const cmd_raw = cmd.replace("help ", "");
                 message.channel.send("**[DiscordRC Help]**\nWelcome to the DiscordRC help page!\n\n**[Commands]**\n**$help** (shows this message)\n**$shell** (executes a shell script)\n**$rc_shutdown** (shuts down DiscordRC)\n**$info** (shows info about DiscordRC)");
                 console.log(in_log + "Displaying help information to the requester ($help)");
-
                 return;
             }
 
             if (cmd.startsWith("info"))
             {
                 message.channel.send("DiscordRC " + ver + " by o7q\nhttps://github.com/o7q/DiscordRC");
-                console.log(in_log + "Displaying DiscordRC information to the requester ($info)");
-        
+                console.log(in_log + "Displaying DiscordRC information to the requester ($info)");    
                 return;
             }
 
@@ -76,25 +73,23 @@ client.on("messageCreate", (message) =>
                 message.channel.send('Sending (shell) "**' + cmd_raw + '**" to DiscordRC.');
                 console.log(lis_log + 'Heard (shell) request of "' + cmd_raw + '" ($shell) ');
                 transitOut(shell_obj + cmd_raw);
-
                 return;
             }
 
             if (cmd.startsWith("rc_shutdown"))
             {
-                if (doShutdown == true)
+                if (doShutdown)
                 {
                     message.channel.send("Shutting down...");
                     console.log(in_log + "Recieved an rc_shutdown request ($rc_shutdown) (state = " + doShutdown + ")\n -> SHUTTING DOWN");
                     process.exit(0);
                 }
-                if (doShutdown == false)
+                else
                 {
                     message.channel.send("Are you sure you want to shutdown **DiscordRC**? To confirm, type **$rc_shutdown** again.");
                     console.log(in_log + "Recieved an rc_shutdown request ($rc_shutdown) (state = " + doShutdown + ")");
                     doShutdown = true;
                 }
-
                 return;
             }
         
