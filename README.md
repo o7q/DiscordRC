@@ -9,7 +9,7 @@ It requires no prior installation other than configuring a Discord bot.</h3>
 
 ---
 
-<img src="assets/images/program.png"/>
+<img src="assets/images/program.png">
 
 ---
 
