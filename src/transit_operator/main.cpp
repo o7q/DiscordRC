@@ -19,7 +19,7 @@ const string ver = "v1.1.0";         // version
 string transit_content;              // transit content
 string objDict[] = {"shell"};        // object dictionary
 
-main()
+int main()
 {
     cout << " rcbot_transit_operator\n DiscordRC " + ver + " by o7q\n\n";
 
