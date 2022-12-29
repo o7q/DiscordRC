@@ -48,10 +48,10 @@ discord.js: https://discord.js.org
 ---
 
 <b>DiscordRC</b> \
-Programmed with C# and .NET Framework 4.8
+Written in C# with .NET Framework 4.8
 
 <b>rcbot</b> \
-Progammed with JavaScript, Node.js, and discord.js
+Written in JavaScript with Node.js and discord.js
 
 <b>transit_operator & transit_dummy</b> \
-Programmed with C++ and compiled using MinGW G++
+Written in C++ and compiled using MinGW G++
