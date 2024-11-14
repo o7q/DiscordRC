@@ -1,4 +1,7 @@
-<h3><b>NOTICE: This program is currently in its prototype phase! It is not very feature packed at the moment but it does work.</b></h3>
+# This repository is no longer maintained.
+<b>This is an incomplete project I have no plans to finish, it functions in its current state, but is rather feature-dry.</b>
+
+<!-- <h3><b>NOTICE: This program is currently in its prototype phase! It is not very feature packed at the moment but it does work.</b></h3> -->
 
 <img src="assets/images/banner.png">
 
